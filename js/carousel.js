@@ -7,6 +7,7 @@ class Carousel {
         this.prevButton = this.carousel.querySelector('.carousel-prev');
         this.nextButton = this.carousel.querySelector('.carousel-next');
         this.slides = [
+            // First Slider - Business Projects
             {
                 title: "Digital Transformation",
                 description: "Helped a retail chain modernize their operations",
@@ -21,6 +22,38 @@ class Carousel {
                 title: "Market Expansion",
                 description: "Guided international market entry",
                 image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Project 3</text></svg>"
+            },
+            // Second Slider - Technology Projects
+            {
+                title: "Cloud Migration",
+                description: "Successfully migrated enterprise systems to cloud",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Tech Project 1</text></svg>"
+            },
+            {
+                title: "AI Implementation",
+                description: "Integrated AI solutions for customer service",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Tech Project 2</text></svg>"
+            },
+            {
+                title: "Data Analytics",
+                description: "Built comprehensive data analytics platform",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Tech Project 3</text></svg>"
+            },
+            // Third Slider - Innovation Projects
+            {
+                title: "Blockchain Solution",
+                description: "Implemented supply chain tracking system",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Innovation 1</text></svg>"
+            },
+            {
+                title: "IoT Platform",
+                description: "Developed smart factory monitoring system",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Innovation 2</text></svg>"
+            },
+            {
+                title: "Green Technology",
+                description: "Sustainable energy management solution",
+                image: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f0f9ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%233b82f6'>Innovation 3</text></svg>"
             }
         ];
 
@@ -40,7 +73,7 @@ class Carousel {
             const slideElement = document.createElement('div');
             slideElement.className = 'flex-none w-full transition-transform duration-500';
             slideElement.innerHTML = `
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden mx-4">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden mx-4 hover-lift">
                     <img src="${slide.image}" alt="${slide.title}" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">${slide.title}</h3>
@@ -54,10 +87,18 @@ class Carousel {
 
     setupEventListeners() {
         if (this.prevButton) {
-            this.prevButton.addEventListener('click', () => this.prevSlide());
+            this.prevButton.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.prevSlide();
+                this.startAutoPlay();
+            });
         }
         if (this.nextButton) {
-            this.nextButton.addEventListener('click', () => this.nextSlide());
+            this.nextButton.addEventListener('click', () => {
+                this.stopAutoPlay();
+                this.nextSlide();
+                this.startAutoPlay();
+            });
         }
 
         // Touch events for mobile
@@ -65,6 +106,7 @@ class Carousel {
         let touchEndX = 0;
 
         this.carousel.addEventListener('touchstart', (e) => {
+            this.stopAutoPlay();
             touchStartX = e.changedTouches[0].screenX;
         });
 
@@ -75,7 +117,12 @@ class Carousel {
             } else if (touchEndX - touchStartX > 50) {
                 this.prevSlide();
             }
+            this.startAutoPlay();
         });
+
+        // Mouse hover pause
+        this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
     }
 
     updateSlidePosition() {
@@ -94,7 +141,13 @@ class Carousel {
     }
 
     startAutoPlay() {
-        setInterval(() => this.nextSlide(), 5000);
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+        }
     }
 }
 
