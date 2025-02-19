@@ -105,34 +105,6 @@ html {
     }
 }
 
-/* Hover effects */
-.hover-scale {
-    transition: transform 0.3s ease;
-}
-
-.hover-scale:hover {
-    transform: scale(1.05);
-}
-
-.hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Custom button hover effect */
-.btn-primary {
-    @apply bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
-}
-
-.btn-primary:hover {
-    @apply bg-indigo-700 transform -translate-y-1 shadow-lg;
-}
-
 /* Portfolio carousel */
 .portfolio-slide {
     transition: transform 0.5s ease-in-out;
@@ -146,7 +118,69 @@ html {
     transform: scale(1.05);
 }
 
-/* Footer animation */
+/* Search animation */
+.search-input {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-input.active {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    opacity: 1;
+}
+
+/* Service card expansion */
+.service-details {
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.service-details.active {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+.expand-btn {
+    transition: transform 0.3s ease;
+}
+
+.expand-btn.active {
+    transform: rotate(180deg);
+}
+
+/* FAQ accordion */
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.faq-answer {
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.faq-answer.active {
+    max-height: 500px;
+    opacity: 1;
+    padding: 1rem 0;
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+}
+
+.faq-icon.active {
+    transform: rotate(45deg);
+}
+
+/* Footer link hover effects */
 .footer-link {
     position: relative;
     transition: color 0.3s ease;
@@ -184,6 +218,41 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #6366f1;
 }
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+/* Custom button hover effect */
+.btn-primary {
+    @apply bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+}
+
+.btn-primary:hover {
+    @apply bg-indigo-700 transform -translate-y-1 shadow-lg;
+}
+
+/* Hover effects */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Form animations */
 .form-input {
@@ -247,12 +316,5 @@ html {
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
-    }
-}
-
-/* Print styles */
-@media print {
-    .no-print {
-        display: none;
     }
 }
