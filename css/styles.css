@@ -675,6 +675,103 @@ header.scrolled {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
+/* Fix section overlapping */
+section {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+}
+
+.hero-section {
+    position: relative;
+    z-index: 0;
+}
+
+/* Portfolio carousel fixes */
+.carousel-container {
+    width: 100%;
+    height: 400px;
+    margin: 2rem 0;
+}
+
+.carousel-track {
+    display: flex;
+    flex-direction: row;
+    transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 10;
+}
+
+.carousel-button {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 50vh;
+        padding-top: 80px;
+    }
+    
+    h1 {
+        font-size: 2rem !important;
+    }
+    
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .carousel-container {
+        height: 300px;
+    }
+    
+    .service-card img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        min-height: 40vh;
+    }
+    
+    h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    .carousel-container {
+        height: 250px;
+    }
+}
+
 /* Custom utility classes */
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
