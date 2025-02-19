@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close mobile menu when clicking outside
     document.addEventListener('click', function(event) {
-        if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+        if (mobileMenuButton && mobileMenu && !mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
             mobileMenu.classList.add('hidden');
         }
     });
@@ -42,13 +42,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 function setActiveNavItem() {
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('nav a');
-    
+
     navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath) {
-            link.classList.add('text-blue-600');
+            link.classList.add('text-indigo-600');
             link.classList.remove('text-gray-600');
         } else {
-            link.classList.remove('text-blue-600');
+            link.classList.remove('text-indigo-600');
             link.classList.add('text-gray-600');
         }
     });
@@ -60,12 +60,12 @@ setActiveNavItem();
 // Handle page load animations
 document.addEventListener('DOMContentLoaded', function() {
     const fadeElements = document.querySelectorAll('.fade-in');
-    
+
     fadeElements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        
+
         setTimeout(() => {
             element.style.opacity = '1';
             element.style.transform = 'translateY(0)';
