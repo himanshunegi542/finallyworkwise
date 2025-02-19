@@ -26,8 +26,8 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section pt-32 pb-20 px-4 text-center text-white" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Cdefs%3E%3ClinearGradient id=\'a\' x1=\'0\' y1=\'0\' x2=\'0\' y2=\'1\'%3E%3Cstop offset=\'0\' stop-color=\'%236366f1\'/%3E%3Cstop offset=\'1\' stop-color=\'%234f46e5\'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'url(%23a)\'/%3E%3C/svg%3E');">
+    <!-- Update hero section -->
+    <section class="hero-section pt-32 pb-20 px-4" style="background-image: linear-gradient(rgba(79, 70, 229, 0.8), rgba(99, 102, 241, 0.8)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
         <div class="container mx-auto max-w-4xl page-transition">
             <h1 class="text-4xl md:text-5xl font-bold mb-6">About Us & Portfolio</h1>
             <p class="text-xl text-gray-100">Discover our journey, values, and successful projects that have helped businesses thrive.</p>
@@ -77,29 +77,93 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Portfolio Section with 3 Vertical Carousels -->
     <section class="py-20 px-4">
         <div class="container mx-auto">
             <h2 class="text-3xl font-bold text-center mb-6">Our Portfolio</h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Explore some of our successful projects and see how we've helped businesses achieve their goals.</p>
+            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Explore our successful projects across different industries.</p>
 
-            <!-- Portfolio Carousel -->
-            <div class="relative portfolio-carousel">
-                <div class="overflow-hidden">
-                    <div class="flex transition-transform duration-500 carousel-inner">
-                        <!-- Carousel items will be dynamically populated -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Carousel 1: Technology Solutions -->
+                <div class="carousel-container">
+                    <div class="carousel-track" data-carousel="tech">
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Digital Transformation">
+                            <div class="carousel-caption">Digital Transformation</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="AI Implementation">
+                            <div class="carousel-caption">AI Implementation</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cloud Migration">
+                            <div class="carousel-caption">Cloud Migration</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Data Analytics">
+                            <div class="carousel-caption">Data Analytics</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cybersecurity">
+                            <div class="carousel-caption">Cybersecurity</div>
+                        </div>
                     </div>
+                    <div class="carousel-nav"></div>
                 </div>
-                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg carousel-prev hover:bg-gray-100 transition-colors">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-lg carousel-next hover:bg-gray-100 transition-colors">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+
+                <!-- Carousel 2: Business Consulting -->
+                <div class="carousel-container">
+                    <div class="carousel-track" data-carousel="business">
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Strategic Planning">
+                            <div class="carousel-caption">Strategic Planning</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Team Development">
+                            <div class="carousel-caption">Team Development</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Process Optimization">
+                            <div class="carousel-caption">Process Optimization</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Risk Management">
+                            <div class="carousel-caption">Risk Management</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Leadership Training">
+                            <div class="carousel-caption">Leadership Training</div>
+                        </div>
+                    </div>
+                    <div class="carousel-nav"></div>
+                </div>
+
+                <!-- Carousel 3: Market Analysis -->
+                <div class="carousel-container">
+                    <div class="carousel-track" data-carousel="market">
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Market Research">
+                            <div class="carousel-caption">Market Research</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Competitive Analysis">
+                            <div class="carousel-caption">Competitive Analysis</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Growth Strategy">
+                            <div class="carousel-caption">Growth Strategy</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1553877522-1b418d9b1024?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Market Entry">
+                            <div class="carousel-caption">Market Entry</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Consumer Insights">
+                            <div class="carousel-caption">Consumer Insights</div>
+                        </div>
+                    </div>
+                    <div class="carousel-nav"></div>
+                </div>
             </div>
         </div>
     </section>
