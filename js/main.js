@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Header scroll effect
     const header = document.querySelector('header');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
 
     // Enhanced parallax effect
     const heroSection = document.querySelector('.hero-section');
@@ -24,17 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenu = document.getElementById('mobile-menu');
 
     if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
+        mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-    }
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (mobileMenuButton && mobileMenu && !mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-            mobileMenu.classList.add('hidden');
-        }
-    });
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    }
 
     // Handle window resize
     window.addEventListener('resize', function() {
@@ -85,27 +86,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize active nav item
     setActiveNavItem();
 
-    // Page load animations
-    function initPageAnimations() {
-        const fadeElements = document.querySelectorAll('.animate-fade-in');
-        const slideElements = document.querySelectorAll('.animate-slide-up');
+    // Initialize animation on scroll
+    document.addEventListener('DOMContentLoaded', () => {
+        const animateElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
 
-        // Fade in animations
-        fadeElements.forEach((element, index) => {
-            setTimeout(() => {
-                element.style.opacity = '1';
-            }, index * 100);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(element => {
+            observer.observe(element);
         });
-
-        // Slide up animations
-        slideElements.forEach((element, index) => {
-            setTimeout(() => {
-                element.style.transform = 'translateY(0)';
-                element.style.opacity = '1';
-            }, index * 100);
-        });
-    }
-
-    // Initialize animations
-    initPageAnimations();
+    });
 });

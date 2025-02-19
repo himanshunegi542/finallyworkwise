@@ -779,8 +779,13 @@ section {
         font-size: 2rem !important;
     }
     
+    h2 {
+        font-size: 1.75rem !important;
+    }
+    
     .container {
         padding: 0 1rem;
+        width: 100%;
     }
     
     .grid {
@@ -789,10 +794,46 @@ section {
     
     .carousel-container {
         height: 300px;
+        width: 100% !important;
+    }
+    
+    .service-card {
+        margin-bottom: 1.5rem;
     }
     
     .service-card img {
         height: 200px;
+    }
+
+    .hero-content {
+        padding: 2rem 1rem;
+    }
+
+    .service-content {
+        padding: 1.5rem;
+    }
+
+    .mobile-menu {
+        width: 100%;
+        z-index: 50;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .contact-form {
+        padding: 1.5rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .footer-content {
+        text-align: center;
     }
 }
 
@@ -805,8 +846,31 @@ section {
         font-size: 1.75rem !important;
     }
     
+    h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+    
     .carousel-container {
         height: 250px;
+    }
+
+    .service-card img {
+        height: 180px;
+    }
+
+    .footer [class*="grid-cols"] {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+    }
+
+    .social-icons {
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 }
 
