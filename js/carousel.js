@@ -5,23 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const track = carousel.querySelector('.carousel-track');
         const slides = carousel.querySelectorAll('.carousel-slide');
         const navDots = carousel.querySelector('.carousel-nav');
-        const prevButton = carousel.querySelector('.prev');
-        const nextButton = carousel.querySelector('.next');
         let currentIndex = 0;
         let autoplayInterval;
-
-        // Add click events for navigation buttons
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-            updateCarousel();
-            resetAutoplay();
-        });
-
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            updateCarousel();
-            resetAutoplay();
-        });
 
         // Create navigation dots
         // Initialize manual navigation controls
