@@ -5,12 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        if (currentScroll > lastScroll && currentScroll > 100) {
-            header.style.transform = 'translateY(-100%)';
+        if (currentScroll > 50) {
+            header.classList.add('scrolled');
         } else {
-            header.style.transform = 'translateY(0)';
+            header.classList.remove('scrolled');
         }
-        lastScroll = currentScroll;
     });
 
     // Enhanced parallax effect
