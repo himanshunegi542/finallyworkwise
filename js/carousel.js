@@ -9,6 +9,23 @@ document.addEventListener('DOMContentLoaded', function() {
         let autoplayInterval;
 
         // Create navigation dots
+        // Initialize manual navigation controls
+        const controls = document.createElement('div');
+        controls.classList.add('carousel-controls');
+        controls.innerHTML = `
+            <button class="carousel-button prev">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button class="carousel-button next">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        `;
+        carousel.appendChild(controls);
+
         slides.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.classList.add('carousel-dot');
@@ -16,9 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             dot.addEventListener('click', () => goToSlide(index));
             navDots.appendChild(dot);
         });
-
-        // Create control buttons
-        const controls = document.createElement('div');
         controls.classList.add('carousel-controls');
         controls.innerHTML = `
             <button class="carousel-button prev">

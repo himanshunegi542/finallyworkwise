@@ -136,9 +136,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.add('celebrate');
             setTimeout(() => document.body.classList.remove('celebrate'), 1000);
             
-            // Show success message
+            // Add celebration effect
+            document.body.classList.add('celebrate');
+            setTimeout(() => document.body.classList.remove('celebrate'), 2000);
+
+            // Show success message with confetti effect
             const successMessage = document.createElement('div');
-            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
+            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0 celebrate';
             successMessage.innerHTML = `
                 <div class="flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
