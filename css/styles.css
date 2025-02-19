@@ -1,20 +1,19 @@
-/* Custom styles beyond Tailwind */
+/* Base styles */
 html {
     scroll-behavior: smooth;
 }
 
-/* Hero section styles with parallax */
+/* Hero section with parallax */
 .hero-section {
     background-image: url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
     overflow: hidden;
-    min-height: 80vh;
-    transform-style: preserve-3d;
-    perspective: 1000px;
 }
 
 .hero-section::before {
@@ -24,30 +23,64 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
     z-index: 1;
 }
 
-.hero-section > * {
+.hero-content {
     position: relative;
     z-index: 2;
-}
-
-.hero-content {
     transform: translateZ(0);
     will-change: transform;
 }
 
-/* Service card styles */
+/* Search bar animations */
+.search-container {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 40px;
+    overflow: hidden;
+}
+
+.search-container.active {
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    opacity: 0;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.search-container.active .search-input {
+    opacity: 1;
+    padding: 0.75rem 1rem;
+    position: relative;
+}
+
+.search-icon {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.search-container.active .search-icon {
+    transform: rotate(90deg);
+}
+
+/* Service cards */
 .service-card {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
 .service-card img {
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
-    height: 100%;
+    height: 300px;
     object-fit: cover;
 }
 
@@ -64,33 +97,17 @@ html {
 }
 
 .service-details.active {
-    max-height: 1000px;
+    max-height: 2000px;
     opacity: 1;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .expand-btn {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .expand-btn.active {
     transform: rotate(180deg);
-}
-
-/* Search animation */
-.search-container {
-    position: relative;
-    transition: all 0.3s ease-in-out;
-}
-
-.search-icon {
-    transition: all 0.3s ease-in-out;
-}
-
-.search-input {
-    width: 100%;
-    opacity: 1;
-    transition: all 0.3s ease-in-out;
 }
 
 /* FAQ accordion */
@@ -101,14 +118,14 @@ html {
 .faq-answer {
     max-height: 0;
     opacity: 0;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
 }
 
 .faq-answer.active {
     max-height: 500px;
     opacity: 1;
-    padding: 1rem 0;
+    padding: 1.5rem 0;
 }
 
 .faq-icon {
@@ -117,6 +134,57 @@ html {
 
 .faq-icon.active {
     transform: rotate(45deg);
+}
+
+/* Portfolio carousel */
+.carousel-container {
+    width: 80%;
+    margin: 2rem auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+    height: 400px;
+    position: relative;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carousel-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: white;
+    transform: scale(1.2);
 }
 
 /* Animations */
@@ -154,50 +222,7 @@ html {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .service-card {
-        grid-template-columns: 1fr;
-    }
-
-    .service-card img {
-        height: 200px;
-    }
-}
-
-/* Page transitions */
-.page-transition {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* Smooth animation classes */
-
-/* Portfolio carousel */
-.portfolio-slide {
-    transition: transform 0.5s ease-in-out;
-}
-
-.portfolio-slide img {
-    transition: transform 0.3s ease;
-}
-
-.portfolio-slide:hover img {
-    transform: scale(1.05);
-}
-
-/* Footer link hover effects */
+/* Footer animations */
 .footer-link {
     position: relative;
     transition: color 0.3s ease;
@@ -217,6 +242,51 @@ html {
 .footer-link:hover::after {
     width: 100%;
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll;
+    }
+
+    .service-card {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card img {
+        height: 200px;
+    }
+
+    .carousel-container {
+        width: 95%;
+    }
+}
+
+/* Custom styles beyond Tailwind */
+/* Hero section styles with parallax */
+
+/* Service card styles */
+
+/* Service card expansion */
+
+/* Search animation */
+
+/* FAQ accordion */
+
+/* Animations */
+
+/* Hover effects */
+
+/* Responsive adjustments */
+
+/* Page transitions */
+
+/* Smooth animation classes */
+
+/* Portfolio carousel */
+
+
+/* Footer link hover effects */
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

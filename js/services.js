@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     serviceCards.forEach(card => {
         const expandBtn = card.querySelector('.expand-btn');
         const details = card.querySelector('.service-details');
+        const img = card.querySelector('img');
 
         if (!expandBtn || !details) return;
 
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const otherDetails = otherCard.querySelector('.service-details');
                 const otherBtn = otherCard.querySelector('.expand-btn');
 
-                if (otherCard !== card) {
+                if (otherCard !== card && otherDetails && otherBtn) {
                     otherDetails.classList.remove('active');
                     otherBtn.classList.remove('active');
                 }
@@ -34,8 +35,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         behavior: 'smooth', 
                         block: 'center'
                     });
-                }, 100);
+                }, 300);
             }
+        });
+
+        // Add hover effects
+        card.addEventListener('mouseenter', function() {
+            card.classList.add('hover-lift');
+            if (img) img.style.transform = 'scale(1.05)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.classList.remove('hover-lift');
+            if (img) img.style.transform = 'scale(1)';
         });
     });
 
@@ -48,36 +60,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!button || !answer || !icon) return;
 
         button.addEventListener('click', function() {
-            const isOpen = answer.classList.contains('active');
-
             // Close all other FAQ items
             faqItems.forEach(otherItem => {
                 if (otherItem !== item) {
                     const otherAnswer = otherItem.querySelector('.faq-answer');
                     const otherIcon = otherItem.querySelector('.faq-icon');
-                    otherAnswer.classList.remove('active');
-                    otherIcon.classList.remove('active');
+                    if (otherAnswer && otherIcon) {
+                        otherAnswer.classList.remove('active');
+                        otherIcon.classList.remove('active');
+                    }
                 }
             });
 
-            // Toggle current FAQ item
+            // Toggle current FAQ item with animation
+            answer.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            icon.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+
             answer.classList.toggle('active');
             icon.classList.toggle('active');
-        });
-    });
-
-    // Add hover effects
-    serviceCards.forEach(card => {
-        const img = card.querySelector('img');
-
-        card.addEventListener('mouseenter', function() {
-            card.classList.add('hover-lift');
-            if (img) img.style.transform = 'scale(1.05)';
-        });
-
-        card.addEventListener('mouseleave', function() {
-            card.classList.remove('hover-lift');
-            if (img) img.style.transform = 'scale(1)';
         });
     });
 });

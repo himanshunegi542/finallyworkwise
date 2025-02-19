@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isSearchActive = false;
 
     // Toggle search on icon click
-    if (searchIcon) {
+    if (searchIcon && searchContainer) {
         searchIcon.addEventListener('click', function() {
             isSearchActive = !isSearchActive;
             searchContainer.classList.toggle('active');
@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const searchTerm = e.target.value.toLowerCase().trim();
 
             serviceCards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
+                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const description = card.querySelector('p')?.textContent.toLowerCase() || '';
                 const content = `${title} ${description}`;
 
                 if (searchTerm === '' || content.includes(searchTerm)) {
@@ -37,12 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Add fade-in animation
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
+                    requestAnimationFrame(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
-                    }, 100);
+                    });
                 } else {
-                    card.style.display = 'none';
+                    // Fade-out animation
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
                 }
             });
 
@@ -66,15 +71,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close search on escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isSearchActive) {
+        if (e.key === 'Escape' && isSearchActive && searchContainer) {
             isSearchActive = false;
             searchContainer.classList.remove('active');
             searchInput.value = '';
-            // Show all cards
+            // Show all cards with animation
             serviceCards.forEach(card => {
                 card.style.display = 'block';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
+                requestAnimationFrame(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                });
             });
         }
     });
