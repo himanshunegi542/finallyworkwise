@@ -1,3 +1,4 @@
+
 class Carousel {
     constructor(container) {
         this.container = container;
@@ -6,8 +7,9 @@ class Carousel {
         this.track = this.container.querySelector('.carousel-track');
         this.slides = Array.from(this.track.children);
         this.nav = this.container.querySelector('.carousel-nav');
+        this.prevButton = this.container.querySelector('.carousel-button.prev');
+        this.nextButton = this.container.querySelector('.carousel-button.next');
         this.currentIndex = 0;
-        this.slideHeight = this.container.offsetHeight;
         this.autoPlayInterval = null;
 
         this.init();
@@ -15,14 +17,13 @@ class Carousel {
 
     init() {
         this.createNavigation();
-        this.positionSlides();
+        this.setupSlides();
         this.bindEvents();
         this.startAutoPlay();
         this.updateSlidePosition();
     }
 
     createNavigation() {
-        // Create navigation dots
         this.slides.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
@@ -35,43 +36,54 @@ class Carousel {
         });
     }
 
-    positionSlides() {
-        // Position slides vertically
+    setupSlides() {
         this.slides.forEach((slide, index) => {
-            slide.style.transform = `translateY(${100 * index}%)`;
+            slide.style.transform = `translateX(${100 * index}%)`;
         });
     }
 
     bindEvents() {
-        // Touch events
-        let touchStartY = 0;
-        let touchEndY = 0;
+        if (this.prevButton) {
+            this.prevButton.addEventListener('click', () => {
+                this.prevSlide();
+                this.stopAutoPlay();
+                this.startAutoPlay();
+            });
+        }
+
+        if (this.nextButton) {
+            this.nextButton.addEventListener('click', () => {
+                this.nextSlide();
+                this.stopAutoPlay();
+                this.startAutoPlay();
+            });
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         this.container.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
             this.stopAutoPlay();
         });
 
         this.container.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].clientY;
-            if (touchStartY - touchEndY > 50) {
+            touchEndX = e.changedTouches[0].clientX;
+            if (touchStartX - touchEndX > 50) {
                 this.nextSlide();
-            } else if (touchEndY - touchStartY > 50) {
+            } else if (touchEndX - touchStartX > 50) {
                 this.prevSlide();
             }
             this.startAutoPlay();
         });
 
-        // Mouse hover pause
         this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
         this.container.addEventListener('mouseleave', () => this.startAutoPlay());
     }
 
     updateSlidePosition() {
-        // Move slides vertically
-        this.track.style.transform = `translateY(-${this.currentIndex * 100}%)`;
-
-        // Update navigation dots
+        this.track.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+        
         const dots = this.nav.children;
         Array.from(dots).forEach((dot, index) => {
             dot.classList.toggle('active', index === this.currentIndex);
@@ -104,7 +116,6 @@ class Carousel {
     }
 }
 
-// Initialize all carousels when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const carousels = document.querySelectorAll('.carousel-container');
     carousels.forEach(container => new Carousel(container));

@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Enhanced header animation
+    // Header scroll effect
     const header = document.querySelector('header');
-    let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll > 50) {
+        if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
@@ -46,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Parallax effect for hero section
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
+    const heroSection2 = document.querySelector('.hero-section');
+    if (heroSection2) {
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
-            heroSection.style.backgroundPositionY = (scrolled * 0.5) + 'px';
+            heroSection2.style.backgroundPositionY = (scrolled * 0.5) + 'px';
         });
     }
 
