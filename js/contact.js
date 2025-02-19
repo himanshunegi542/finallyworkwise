@@ -132,6 +132,10 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
 
+            // Celebration effect
+            document.body.classList.add('celebrate');
+            setTimeout(() => document.body.classList.remove('celebrate'), 1000);
+            
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
