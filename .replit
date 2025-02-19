@@ -4,7 +4,7 @@ modules = ["python-3.11", "nodejs-20"]
 channel = "stable-24_05"
 
 [workflows]
-runButton = "Project"
+runButton = "Static Server"
 
 [[workflows.workflow]]
 name = "Project"
@@ -36,3 +36,7 @@ run = ["sh", "-c", "npx http-server . -p 3000 -c-1"]
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
