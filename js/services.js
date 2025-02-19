@@ -29,7 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Smooth scroll to expanded card
             if (!isExpanded) {
-                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => {
+                    card.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center'
+                    });
+                }, 100);
             }
         });
     });
@@ -47,10 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Close all other FAQ items
             faqItems.forEach(otherItem => {
-                const otherAnswer = otherItem.querySelector('.faq-answer');
-                const otherIcon = otherItem.querySelector('.faq-icon');
-
                 if (otherItem !== item) {
+                    const otherAnswer = otherItem.querySelector('.faq-answer');
+                    const otherIcon = otherItem.querySelector('.faq-icon');
                     otherAnswer.classList.remove('active');
                     otherIcon.classList.remove('active');
                 }
@@ -64,12 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add hover effects
     serviceCards.forEach(card => {
+        const img = card.querySelector('img');
+
         card.addEventListener('mouseenter', function() {
-            this.classList.add('hover-lift');
+            card.classList.add('hover-lift');
+            if (img) img.style.transform = 'scale(1.05)';
         });
 
         card.addEventListener('mouseleave', function() {
-            this.classList.remove('hover-lift');
+            card.classList.remove('hover-lift');
+            if (img) img.style.transform = 'scale(1)';
         });
     });
 });
