@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggling
+    const themeToggle = document.getElementById('theme-toggle');
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        });
+        
+        updateThemeIcons(theme);
+    }
+    
+    function updateThemeIcons(theme) {
+        const sunIcon = themeToggle.querySelector('.sun');
+        const moonIcon = themeToggle.querySelector('.moon');
+        if (theme === 'dark') {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        } else {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        }
+    }
     // Header scroll effect
     const header = document.querySelector('header');
     if (header) {
