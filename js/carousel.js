@@ -5,25 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const track = carousel.querySelector('.carousel-track');
         const slides = carousel.querySelectorAll('.carousel-slide');
         const navDots = carousel.querySelector('.carousel-nav');
-        const prevButton = carousel.querySelector('.prev');
-        const nextButton = carousel.querySelector('.next');
-
-        // Add navigation controls
-        const controls = document.createElement('div');
-        controls.classList.add('carousel-controls');
-        controls.innerHTML = `
-            <button class="carousel-button prev">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-            </button>
-            <button class="carousel-button next">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
-        `;
-        carousel.appendChild(controls);
         let currentIndex = 0;
         let autoplayInterval;
 
