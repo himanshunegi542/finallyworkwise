@@ -3,13 +3,18 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Hero section styles */
+/* Hero section styles with parallax */
 .hero-section {
+    background-image: url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-attachment: fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
     overflow: hidden;
+    min-height: 80vh;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .hero-section::before {
@@ -28,12 +33,68 @@ html {
     z-index: 2;
 }
 
+.hero-content {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
 /* Page transitions */
 .page-transition {
     animation: fadeInUp 0.6s ease-out;
 }
 
 @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Service card styles */
+.service-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.service-card img {
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.service-card:hover img {
+    transform: scale(1.05);
+}
+
+.service-card .service-content {
+    padding: 1.5rem;
+}
+
+/* Smooth animation classes */
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -62,15 +123,6 @@ html {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Service card hover effects */
-.service-card {
-    transition: all 0.3s ease-in-out;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
 
 /* Custom button hover effect */
 .btn-primary {
@@ -175,7 +227,6 @@ html {
     transform: translateY(-10px);
     transition: opacity 300ms, transform 300ms;
 }
-
 
 /* Hero section gradient overlay */
 .hero-gradient {
