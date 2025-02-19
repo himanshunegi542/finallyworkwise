@@ -262,6 +262,44 @@ html {
     }
 }
 
+/* Add animation for service details */
+.animate-details > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-details.active .animate-details > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-details.active .animate-details > *:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.service-details.active .animate-details > *:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.service-details.active .animate-details > *:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Table styles */
+.service-details table {
+    @apply shadow-sm rounded-lg overflow-hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+}
+
+.service-details.active table {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Custom styles beyond Tailwind */
 /* Hero section styles with parallax */
 
