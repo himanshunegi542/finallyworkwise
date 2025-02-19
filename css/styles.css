@@ -587,14 +587,39 @@ header.scrolled {
 
     .service-card {
         grid-template-columns: 1fr;
+        margin: 1rem;
+        overflow: visible;
+    }
+
+    .service-card .grid {
+        display: block;
     }
 
     .service-card img {
         height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .service-content {
+        padding: 1rem;
+    }
+
+    .service-details {
+        padding: 0 1rem;
     }
 
     .carousel-container {
         width: 95%;
+    }
+
+    .overflow-x-auto {
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        font-size: 14px;
     }
 }
 
