@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const error = validationFn(this.value.trim());
             errorElement.textContent = error;
             errorElement.classList.toggle('hidden', !error);
-            
+
             // Add visual feedback
             if (error) {
                 input.classList.add('border-red-500');
@@ -132,17 +132,25 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
 
-            // Celebration effect
-            document.body.classList.add('celebrate');
-            setTimeout(() => document.body.classList.remove('celebrate'), 1000);
-            
-            // Add celebration effect
-            document.body.classList.add('celebrate');
-            setTimeout(() => document.body.classList.remove('celebrate'), 2000);
+            // Create confetti
+            const colors = ['#10B981', '#34D399', '#059669', '#047857'];
+            const confettiCount = 200;
 
-            // Show success message with confetti effect
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+
+                // Remove confetti after animation
+                setTimeout(() => confetti.remove(), 3000);
+            }
+
+            // Show success message
             const successMessage = document.createElement('div');
-            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0 celebrate';
+            successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
             successMessage.innerHTML = `
                 <div class="flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Reset form
             contactForm.reset();
-            
+
             // Remove success message after 3 seconds
             setTimeout(() => {
                 successMessage.classList.add('translate-y-[-100%]');
@@ -197,14 +205,14 @@ document.addEventListener('DOMContentLoaded', function() {
     messageInput.addEventListener('input', function() {
         const maxLength = 1000;
         const remaining = maxLength - this.value.length;
-        
+
         let counter = this.parentElement.querySelector('.char-counter');
         if (!counter) {
             counter = document.createElement('div');
             counter.className = 'char-counter text-sm text-gray-500 mt-1';
             this.parentElement.appendChild(counter);
         }
-        
+
         counter.textContent = `${remaining} characters remaining`;
         counter.classList.toggle('text-red-500', remaining < 50);
     });
