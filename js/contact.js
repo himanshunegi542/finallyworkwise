@@ -42,11 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validatePhone(phone) {
-        if (!patterns.phone.test(phone)) {
-            return 'Please enter a valid phone number';
-        }
-        return '';
+    if (phone.trim() === "") {
+        return ""; // Empty phone number is allowed
     }
+    if (!patterns.phone.test(phone)) {
+        return "Please enter a valid phone number";
+    }
+    return "";
+}
 
     function validateMessage(message) {
         if (message.length < 10) {
