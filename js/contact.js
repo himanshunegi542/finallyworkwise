@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Simulate form submission (replace with actual API call in production)
         try {
             await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-            const formData = new FormData(contactForm);
+           const formData = new FormData(contactForm);
 
 const response = await fetch(contactForm.action, {
     method: "POST",
