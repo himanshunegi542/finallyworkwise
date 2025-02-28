@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validatePhone(phone) {
-    if (phone.trim() === "") {
-        return ""; // Empty phone number is allowed
+        if (phone.trim() === "") {
+            return ""; // Empty phone number is allowed
+        }
+        if (!patterns.phone.test(phone)) {
+            return "Please enter a valid phone number";
+        }
+        return "";
     }
-    if (!patterns.phone.test(phone)) {
-        return "Please enter a valid phone number";
-    }
-    return "";
-}
 
     function validateMessage(message) {
         if (message.length < 10) {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return '';
     }
 
-    // Real-time validation
+    // Setup validation for each input
     function setupInputValidation(input, errorElement, validationFn) {
         input.addEventListener('input', function() {
             const error = validationFn(this.value.trim());
@@ -69,16 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.classList.toggle('hidden', !error);
 
             // Add visual feedback
-            if (error) {
-                input.classList.add('border-red-500');
-                input.classList.remove('border-green-500');
-            } else {
-                input.classList.remove('border-red-500');
-                input.classList.add('border-green-500');
-            }
+            input.classList.toggle('border-red-500', !!error);
+            input.classList.toggle('border-green-500', !error);
         });
 
-        // Validate on blur
         input.addEventListener('blur', function() {
             const error = validationFn(this.value.trim());
             errorElement.textContent = error;
@@ -86,13 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Setup validation for each input
     setupInputValidation(nameInput, nameError, validateName);
     setupInputValidation(emailInput, emailError, validateEmail);
     setupInputValidation(phoneInput, phoneError, validatePhone);
     setupInputValidation(messageInput, messageError, validateMessage);
 
-    // Form submission handler
+    // Form submission handler (AJAX)
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 
@@ -108,128 +101,77 @@ document.addEventListener('DOMContentLoaded', function() {
         phoneError.textContent = phoneVal;
         messageError.textContent = messageVal;
 
-        // Toggle error visibility
         nameError.classList.toggle('hidden', !nameVal);
         emailError.classList.toggle('hidden', !emailVal);
         phoneError.classList.toggle('hidden', !phoneVal);
         messageError.classList.toggle('hidden', !messageVal);
 
-        // If there are any validation errors, stop submission
         if (nameVal || emailVal || phoneVal || messageVal) {
             return;
         }
 
-        // Create loading state
+        // Show loading state
         const submitButton = contactForm.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.innerHTML;
         submitButton.disabled = true;
-        submitButton.innerHTML = `
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        submitButton.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Sending...
-        `;
+            </svg> Sending...`;
 
-        // Simulate form submission (replace with actual API call in production)
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-           const formData = new FormData(contactForm);
+            const formData = new FormData(contactForm);
+            const response = await fetch("https://formsubmit.co/workhive.biz@gmail.com", {
+                method: "POST",
+                body: formData,
+                headers: { "Accept": "application/json" }
+            });
 
-const response = await fetch(contactForm.action, {
-    method: "POST",
-    body: formData,
-    headers: {
-        "Accept": "application/json"
-    }
-});
+            if (!response.ok) throw new Error("Failed to send message. Please try again.");
 
-if (!response.ok) {
-    throw new Error("Failed to send message. Please try again.");
-}
-
-            // Create confetti
+            // Confetti effect
             const colors = ['#10B981', '#34D399', '#059669', '#047857'];
-            const confettiCount = 200;
-
-            for (let i = 0; i < confettiCount; i++) {
+            for (let i = 0; i < 200; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animationDelay = Math.random() * 3 + 's';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 document.body.appendChild(confetti);
-
-                // Remove confetti after animation
                 setTimeout(() => confetti.remove(), 3000);
             }
 
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-y-0';
-            successMessage.innerHTML = `
-                <div class="flex items-center">
+            successMessage.innerHTML = `<div class="flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Message sent successfully!
-                </div>
-            `;
+                    </svg> Message sent successfully!
+                </div>`;
             document.body.appendChild(successMessage);
 
-            // Reset form
             contactForm.reset();
-
-            // Remove success message after 3 seconds
             setTimeout(() => {
                 successMessage.classList.add('translate-y-[-100%]');
                 setTimeout(() => successMessage.remove(), 500);
             }, 3000);
 
-            // Reset input styles
-            [nameInput, emailInput, phoneInput, messageInput].forEach(input => {
-                input.classList.remove('border-green-500', 'border-red-500');
-            });
+            [nameInput, emailInput, phoneInput, messageInput].forEach(input => input.classList.remove('border-green-500', 'border-red-500'));
 
         } catch (error) {
-            // Show error message
             const errorMessage = document.createElement('div');
             errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
-            errorMessage.innerHTML = `
-                <div class="flex items-center">
+            errorMessage.innerHTML = `<div class="flex items-center">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                    Failed to send message. Please try again.
-                </div>
-            `;
+                    </svg> Failed to send message. Please try again.
+                </div>`;
             document.body.appendChild(errorMessage);
-
-            // Remove error message after 3 seconds
-            setTimeout(() => {
-                errorMessage.classList.add('translate-y-[-100%]');
-                setTimeout(() => errorMessage.remove(), 500);
-            }, 3000);
+            setTimeout(() => errorMessage.remove(), 3000);
         } finally {
-            // Reset button state
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
         }
-    });
-
-    // Character counter for message
-    messageInput.addEventListener('input', function() {
-        const maxLength = 1000;
-        const remaining = maxLength - this.value.length;
-
-        let counter = this.parentElement.querySelector('.char-counter');
-        if (!counter) {
-            counter = document.createElement('div');
-            counter.className = 'char-counter text-sm text-gray-500 mt-1';
-            this.parentElement.appendChild(counter);
-        }
-
-        counter.textContent = `${remaining} characters remaining`;
-        counter.classList.toggle('text-red-500', remaining < 50);
     });
 });
