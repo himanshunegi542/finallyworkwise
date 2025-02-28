@@ -134,6 +134,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Simulate form submission (replace with actual API call in production)
         try {
             await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+            const formData = new FormData(contactForm);
+
+const response = await fetch(contactForm.action, {
+    method: "POST",
+    body: formData,
+    headers: {
+        "Accept": "application/json"
+    }
+});
+
+if (!response.ok) {
+    throw new Error("Failed to send message. Please try again.");
+}
 
             // Create confetti
             const colors = ['#10B981', '#34D399', '#059669', '#047857'];
